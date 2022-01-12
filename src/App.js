@@ -1,7 +1,12 @@
+import { BrowserRouter } from 'react-router-dom'
+import Router from './auth/routes/Router';
+
 function App() {
   return (
     <div className="App">
-      <h1>WALK MY PUP</h1>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     </div>
   );
 }
