@@ -1,0 +1,121 @@
+// ====== GLOBAL STYLES AND CLASSES ========= //
+@import url("https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&family=Noto+Sans+Display:wght@200;300;400;500;600&display=swap");
+
+// ============= VARIABLES ============== //
+$base-font: "Mochiy Pop P One", sans-serif;
+$second-font: "Noto Sans Display", sans-serif;
+// ==================================//
+
+body {
+  font-family: $second-font;
+}
+
+// ============ BUTTONS ==============//
+.btn {
+  width: 6rem;
+  border-radius: 100vw;
+  border-color: transparent;
+  padding: 0.5rem;
+  transition: 300ms;
+  font-family: $base-font;
+  color: #fff;
+  background-color: rgb(187, 31, 3);
+}
+
+.btn:hover {
+  cursor: pointer;
+  transform: translateY(-2px);
+}
+
+.btn:disabled {
+  opacity: 0.2;
+  cursor: default;
+  transform: none;
+}
+//===================================//
+
+// ============== TITLES ==============//
+h2 {
+  color: rgb(187, 31, 3);
+  font-family: $base-font;
+  margin-bottom: 0.5rem;
+  margin-left: 0.5rem;
+}
+//====================================//
+
+//=============== INPUTS =================//
+.input {
+  border: 1px solid rgb(204, 204, 204);
+  background-color: #fff;
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 100vw;
+  transition: 300ms;
+}
+
+.input:focus {
+  outline: none;
+  border: 1px solid rgb(0, 45, 128);
+}
+
+.input::placeholder {
+  font-family: $second-font;
+  color: rgb(204, 204, 204);
+  font-size: 1rem;
+}
+
+.err {
+  border: 1px solid red;
+}
+//=======================================//
+
+//========= DIVS ==========//
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+//=====================//
+
+//======= MARGINS =======//
+.marg-top {
+  margin-top: 0.5rem;
+}
+
+.marg-top-xtra {
+  margin-top: 1rem;
+}
+//=====================//
+
+//======= HOVER ========//
+.hover-underline:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+//========================//
+
+.title-main {
+  font-family: $base-font;
+
+  // color: rgb(248, 250, 252);
+  font-size: 3.3rem;
+  margin-bottom: 4rem;
+}
+
+.hover {
+  transition: 300ms;
+}
+
+.hover:hover {
+  cursor: pointer;
+  transform: translateY(-2px);
+}
