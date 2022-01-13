@@ -23,11 +23,12 @@ const Router = () => {
   return (
     <UserContext.Provider value={{ user, setUser }} >
       <Routes>
-        {/* ============ PROTECTED ROUTES =============== */}
+
+        {/*========= PROTECTED ROUTES ==========*/}
         <Route element={<RequireAuth />}>
           <Route path="/" element={<Dashboard />} />
         </Route>
-        {/* ============================================= */}
+        {/*=====================================*/}
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
