@@ -20,7 +20,7 @@ const Signup = () => {
 
   const handleRegisterUser = async () => {
     if (register.password !== register.confirmPassord) {
-      console.log('passwords dont match')
+      console.log('passwords dont match') // TODO: output error message to screen
     } else {
       try {
         await createUserWithEmailAndPassword(auth, register.email, register.password)

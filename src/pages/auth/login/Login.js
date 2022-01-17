@@ -1,9 +1,11 @@
 import React from 'react'
 import { auth } from '../../../firebaseConfig'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
-import { Formik, Form, ErrorMessage, Field } from 'formik'
+import { Formik, Form, Field } from 'formik'
+import { googleProvider, facebookProvider } from '../../../firebaseConfig'
 import { formStyle, textStyle, lineStyle, authDiv, linkText, iconStyle } from './styles'
+import * as Yup from 'yup';
 import '../../../styles/global.scss';
 
 const Login = () => {
@@ -14,9 +16,32 @@ const Login = () => {
     password: ''
   }
 
+  const LoginSchema = Yup.object().shape({
+    password: Yup.string().required(),
+    email: Yup.string().email('Invalid email').required(),
+  });
+
   const handleLoginUser = async (values) => {
     try {
       await signInWithEmailAndPassword(auth, values.email, values.password)
+      navigate('/')
+    } catch (err) {
+      console.log(err.message)
+    }
+  }
+
+  const handleGoogleLogin = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider)
+      navigate('/')
+    } catch (err) {
+      console.log(err.message)
+    }
+  }
+
+  const handleFacebookLogin = async () => {
+    try {
+      await signInWithPopup(auth, facebookProvider)
       navigate('/')
     } catch (err) {
       console.log(err.message)
@@ -29,22 +54,7 @@ const Login = () => {
       <h1 className='title-main'>Walk My Pup</h1>
       <Formik
         initialValues={initialValues}
-        validate={values => {
-          const errors = {};
-          if (!values.password && !values.email) {
-            errors.email = true;
-            errors.password = true;
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
-            errors.email = 'Invalid email address';
-          } else if (!values.password) {
-            errors.password = true;
-          } else if (!values.email) {
-            errors.email = true;
-          }
-          return errors;
-        }}
+        validationSchema={LoginSchema}
         onSubmit={(values, { setSubmitting }) => {
           handleLoginUser(values)
           setSubmitting(false)
@@ -54,16 +64,14 @@ const Login = () => {
           <Form style={formStyle}>
             <h2>Email</h2>
             <Field className={!errors.email ? 'input' : 'input err'} type="email" name="email" placeholder='Email' />
-            <ErrorMessage name="email" component="div" />
             <h2 className='marg-top-xtra'>Password</h2>
             <Field className={!errors.password ? 'input' : 'input err'} type="password" name="password" placeholder='Password' />
-            <ErrorMessage name="password" component="div" />
             <button style={{ alignSelf: 'center' }} className='btn marg-top-xtra' type="submit" disabled={isSubmitting || !isValid}>
               Login
             </button>
             <p className='hover-underline' style={textStyle}>Forgot Password?</p>
             <hr style={lineStyle} />
-            <div style={authDiv} className='hover'>
+            <div onClick={handleGoogleLogin} style={authDiv} className='hover'>
               <span style={iconStyle}>
                 <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src='https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png' alt='logo' />
               </span>
@@ -71,7 +79,7 @@ const Login = () => {
                 Login with Google
               </p>
             </div>
-            <div style={authDiv} className='hover'>
+            <div onClick={handleFacebookLogin} style={authDiv} className='hover'>
               <span style={iconStyle}>
                 <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src='https://www.rebelup.org/wp-content/uploads/2017/09/facebook-icon-preview-400x400.png' alt='logo' />
               </span>
